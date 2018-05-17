@@ -1,0 +1,33 @@
+
+
+
+
+** eventfd用法
+
+#+BEGIN_SRC c
+#include <sys/eventfd.h>
+int eventfd(unsigned int initval, int flags);
+#+END_SRC
+
+#+BEGIN_SRC c
+#include <unistd.h>
+ssize_t read(int fd, void* buf, size_t count);
+#+END_SRC
+
+*** close-on-exec flag
+https://blog.csdn.net/justmeloo/article/details/40184039
+在fork或execve时，子进程不会继承父进程打开的文件描述符，由于在linux系统中所有对象都是文件，这些文件描述符可以是socket，
+
+
+如何使用select完成eventfd的读写
+poll select epoll
+
+io复用技术 pselect ppol epoll
+
+
+
+** 如何使用eventfd实现一个定时器
+
+
+
+
