@@ -58,7 +58,17 @@ io复用技术 pselect ppol epoll
 
 
 
+*** 为什么select经常与非阻塞io放在一起使用
+select能够监视多个 *阻塞io* 的状态，在他们任意一个出现可读或可写时返回。
+但是select与非阻塞io配合使用的原因在于read或write时不会出现阻塞，这样在能够顺利进入下一个select调用，进行多个io的监视。
+
+
+
 ** 如何使用eventfd实现一个定时器
+
+
+** 在windows下如何实现一个类似eventfd的功能
+
 
 
 
