@@ -24,8 +24,10 @@ Singleton* Singleton::getInstance() {
     }
 }
 
-int main()
-{
+// below code will not work
+// Singleton::instance = NULL;
+
+int main() {
     Singleton* s1 = Singleton::getInstance();
     Singleton* s2 = Singleton::getInstance();
 
