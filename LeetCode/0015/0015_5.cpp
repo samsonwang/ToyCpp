@@ -6,6 +6,8 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <unordered_map>
+#include <unordered_set>
 
 using namespace std;
 
@@ -19,12 +21,11 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 
     set<vector<int>> ans;
 
-    map<int, int> mapNum;
-
     for (size_t i=0; i<nums.size(); ++i) {
         int n1 = nums[i];
 
         // 在剩下的数中寻找相加之和为 -n1 的组合
+        unordered_map<int, int> mapNum;
 
         for (size_t j=i+1; j<nums.size(); ++j) {
             int n2 = nums[j];
