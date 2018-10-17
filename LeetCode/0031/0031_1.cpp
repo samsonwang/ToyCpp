@@ -19,6 +19,7 @@ void reverse(vector<int>& nums) {
     }
 }
 
+// !!!! 这个是错误的答案
 void nextPermutation(vector<int>& nums) {
 
     int bigger = -1;
