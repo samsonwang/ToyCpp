@@ -7,7 +7,6 @@ using namespace std;
 // brute force
 bool isValidSudoku(vector<vector<char>>& board) {
     int exist[10];
-
     // row
     for (size_t i=0; i<9; ++i) {
         memset(exist, 0, sizeof(exist));
@@ -39,8 +38,6 @@ bool isValidSudoku(vector<vector<char>>& board) {
             exist[n] = 1;
         }
     }
-
-
     // sub-box
     vector<vector<int>> index{
         {0,0},
@@ -52,8 +49,6 @@ bool isValidSudoku(vector<vector<char>>& board) {
         {2,0},
         {2,1},
         {2,2}};
-
-
 
     for (size_t m=0; m<9; m=m+3) {
         for (size_t n=0; n<9; n=n+3) {
