@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
         std::cout << std::endl;
     }
 
-    std::cout << "ans size(): " << ans.size() << std::endl;
+    std::cout << "answer count(): " << ans.size() << std::endl;
 
     return 0;
 }
