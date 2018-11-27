@@ -1,0 +1,4 @@
+
+这道题的解法还是很多的
+我想到了bfs，看到了leetcode上还有backtrace和dfs。
+backtrace的时间复杂度是最优的，只不过backtrace需要发现这其中的规律。
