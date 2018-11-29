@@ -1,4 +1,7 @@
 
+
+// code from https://en.cppreference.com/w/cpp/memory/unique_ptr
+
 #include <memory>
 #include <iostream>
 #include <cstdio>
@@ -7,6 +10,16 @@
 #include <fstream>
 #include <cassert>
 #include <functional>
+
+struct B {
+    virtual void bar() { std::cout << "B::bar\n"; }
+    virtual ~B() = default;
+};
+struct D : B {
+    D() { std::cout << "D::D\n";  }
+    ~D() { std::cout << "D::~D\n";  }
+    void bar() override { std::cout << "D::bar\n";  }
+};
 
 void test1() {
     std::unique_ptr<int> pInt(new int(0));
@@ -62,6 +75,20 @@ void test5() {
         });  // p owns D
     } // the lambda above is called and D is destroyed
 
+}
+
+// a function consuming a unique_ptr can take it by value or by rvalue reference
+std::unique_ptr<D> pass_through(std::unique_ptr<D> p) {
+    p->bar();
+    return p;
+}
+
+// unique ownership semantics demo
+void test6() {
+    auto p = std::make_unique<D>(); // p is a unique_ptr that owns a D
+    auto q = pass_through(std::move(p));
+    assert(!p); // now p owns nothing and holds a null pointer
+    q->bar();   // and q owns the D object
 }
 
 int main(int argc, char* argv[]) {
