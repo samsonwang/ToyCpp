@@ -1,29 +1,45 @@
 
 #include <vector>
 #include <string>
+#include <cstring>
 #include <iostream>
 #include <algorithm>
 
 using namespace std;
 
+// optimization this
 bool isAnagrams(const vector<string>& vec, string str) {
     if (vec.empty()) {
         return false;
     }
 
-    string base = vec[0];
+    const string& base = vec[0];
     if (base.size() != str.size()) {
         return false;
     }
 
-    sort(base.begin(), base.end());
-    sort(str.begin(), str.end());
-
-    if (base == str) {
-        return true;
+    int letter[26];
+    memset(letter, 0, sizeof(letter));
+    for (char ch : base) {
+        int pos = ch - 'a';
+        ++letter[pos];
     }
 
-    return false;
+    for (char ch : str) {
+        int pos = ch - 'a';
+        if (letter[pos] < 1) {
+            return false;
+        }
+        --letter[pos];
+    }
+
+    for (int i=0; i<26; ++i) {
+        if (letter[i] != 0) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 // brute force, compare each one
