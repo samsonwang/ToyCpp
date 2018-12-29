@@ -1,0 +1,11 @@
+
+来源： https://leetcode.com/problems/powx-n/
+
+这道题的难度为medium，很多人给了downvote。
+
+题目要求自己实现一个求幂的函数，乍一看没啥思路，应该是某些奇怪的运算技巧吧。
+
+当 =n= 为非负数时，这个还是容易解的，难点在开方运算。
+
+好吧，我还是去网上找了个答案。
+https://www.geeksforgeeks.org/write-a-c-program-to-calculate-powxn/
