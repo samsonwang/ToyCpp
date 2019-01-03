@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
     std::cout << "10 % -3," << 10 % -3 << std::endl;
     std::cout << "-10 % -3," << -10 % -3 << std::endl;
 
-    std::cout << myPow(3, 0) << std::endl;
+    std::cout << myPow(2, INT_MIN) << std::endl;
 
     return 0;
 }
