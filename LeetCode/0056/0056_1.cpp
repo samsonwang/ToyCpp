@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include "../../shared/stream.h"
 
@@ -20,14 +21,31 @@ struct Interval {
 class Solution {
 public:
     std::vector<Interval> merge(std::vector<Interval>& intervals) {
+        if (intervals.size() <= 1) {
+            return intervals;
+        }
+
         std::vector<Interval> ans;
+        std::sort(intervals.begin(), intervals.end(),
+                  Solution::intervalComp);
+        ans.push_back(intervals.front());
+
+        for (const auto& i : intervals) {
+            if (i.start <= ans.back().end) {
+                ans.back().end = std::max(i.end, ans.back().end);
+            }
+            else {
+                ans.push_back(i);
+            }
+        }
 
         return ans;
     }
+
+    static bool intervalComp(const Interval& a, const Interval& b) {
+        return a.start < b.start;
+    }
 };
-
-
-
 
 int main(int argc, char* argv[]) {
     std::vector<Interval> intervals;
