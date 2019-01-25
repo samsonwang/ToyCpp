@@ -26,8 +26,12 @@ public:
         }
 
         std::vector<Interval> ans;
+
+        // use lambda in std::sort
         std::sort(intervals.begin(), intervals.end(),
-                  Solution::intervalComp);
+                  [](const Interval& a, const Interval& b) {
+                      return a.start < b.start;
+                  });
         ans.push_back(intervals.front());
 
         for (const auto& i : intervals) {
