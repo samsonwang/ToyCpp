@@ -43,7 +43,7 @@ static void *consumer_routine(void *data) {
     uint64_t result;
 
     log("Greetings from [consumer-%d]", c->rank);
-    events = calloc(MAX_EVENTS_SIZE, sizeof(struct epoll_event));
+    events = (struct epoll_event*)calloc(MAX_EVENTS_SIZE, sizeof(struct epoll_event));
     if (events == NULL)
         handle_error("calloc epoll events\n");
 
@@ -75,32 +75,32 @@ static void *producer_routine(void *data) {
         efd = eventfd(1, EFD_CLOEXEC|EFD_NONBLOCK);
         if (efd == -1)
             handle_error("eventfd create: %s", strerror(errno));
-        
+
         // register to poller
         event.data.fd = efd;
         event.events = EPOLLIN | EPOLLET;    // Edge-Triggered
         ret = epoll_ctl(epfd, EPOLL_CTL_ADD, efd, &event);
         if (ret != 0)
             handle_error("epoll_ctl");
-        
+
         // trigger (repeatedly)
         write(efd, (void *)0xffffffff, sizeof(uint64_t));
     }
 }
 
 int main(int argc, char *argv[]) {
-    
+
     struct thread_info *p_list = NULL, *c_list = NULL;
     int epfd = -1;
     int ret = -1, i = -1;
-    
+
     // create epoll fd
     epfd = epoll_create1(EPOLL_CLOEXEC);
     if (epfd == -1)
         handle_error("epoll_create1: %s", strerror(errno));
 
     // producers
-    p_list = calloc(NUM_PRODUCERS, sizeof(struct thread_info));
+    p_list = (struct thread_info*)calloc(NUM_PRODUCERS, sizeof(struct thread_info));
     if (!p_list)
         handle_error("calloc");
     for (i = 0; i < NUM_PRODUCERS; i++) {
@@ -112,9 +112,9 @@ int main(int argc, char *argv[]) {
             handle_error("pthread_create");
     }
 
-    
+
     // consumers
-    c_list = calloc(NUM_CONSUMERS, sizeof(struct thread_info));
+    c_list = (struct thread_info*)calloc(NUM_CONSUMERS, sizeof(struct thread_info));
     if (!c_list)
         handle_error("calloc");
     for (i = 0; i < NUM_CONSUMERS; i++) {
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
             handle_error("pthread_create");
     }
 
-    
+
     // join and exit
     for (i = 0; i < NUM_PRODUCERS; i++) {
         ret = pthread_join(p_list[i].thread_id, NULL);
@@ -136,9 +136,9 @@ int main(int argc, char *argv[]) {
         if (ret != 0) handle_error("pthread_join");
     }
 
-    
+
     free(p_list);
     free(c_list);
-    
-    return EXIT_SUCCESS;
+
+              return EXIT_SUCCESS;
 }
