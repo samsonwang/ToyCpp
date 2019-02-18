@@ -20,12 +20,15 @@ public:
         int c = 1;
 
         while (true) {
+            int l = n - c;
+            l = l > 0 ? l : 1;
+
             ++x;
 
             if (num > max) {
                 break;
             }
-            for (int i=c; i<n; ++i) {
+            for (int i=0; i<l; ++i) {
                 ans[y][x] = num;
                 ++num;
                 ++x;
@@ -34,7 +37,7 @@ public:
             if (num > max) {
                 break;
             }
-            for (int i=c; i<n; ++i) {
+            for (int i=0; i<l; ++i) {
                 ans[y][x] = num;
                 ++num;
                 ++y;
@@ -43,7 +46,7 @@ public:
             if (num > max) {
                 break;
             }
-            for (int i=c; i<n; ++i) {
+            for (int i=0; i<l; ++i) {
                 ans[y][x] = num;
                 ++num;
                 --x;
@@ -52,12 +55,12 @@ public:
             if (num > max) {
                 break;
             }
-            for (int i=c; i<n; ++i) {
+            for (int i=0; i<l; ++i) {
                 ans[y][x] = num;
                 ++num;
                 --y;
             }
-            ++c;
+            c += 2;
             ++y;
         }
         return ans;
@@ -65,9 +68,13 @@ public:
 };
 
 int main(int argc, char* argv[]) {
-    vector<vector<int>> mat = Solution().generateMatrix(5);
-    for (const auto& vec : mat) {
-        cout << vec << endl;
+
+    for (int i=3; i<6; ++i) {
+        cout << "i=" << i << endl;
+        vector<vector<int>> mat = Solution().generateMatrix(i);
+        for (const auto& vec : mat) {
+            cout << vec << endl;
+        }
     }
     return 0;
 }
