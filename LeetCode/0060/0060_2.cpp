@@ -27,30 +27,31 @@ public:
 
         std::string ans;
 
-        while (n > 1) {
+        while (n > 1 && k != 0) {
+            // 取得数字，并将数字删除
             int div = k / m_factorials[n-1];
-            int remain = k % m_factorials[n-1];
-            if (remain == 0) {
+            k = k % m_factorials[n-1];
+            if (k == 0) {
                 --div;
+                k = m_factorials[n-1];
             }
 
-            // 取得数字，并将数字删除
             auto it = nums.begin();
-            while ( div > 0) {
+            while (div > 0) {
                 ++it;
                 --div;
             }
 
             int digit = *it;
             nums.erase(it);
-
-            k = remain;
-            --n;
-
             ans += char('0' + digit);
+            --n;
         }
 
-        ans += char('0' + nums.front());
+        while (!nums.empty()) {
+            ans += char('0' + nums.front());
+            nums.pop_front();
+        }
 
         return ans;
     }
@@ -70,12 +71,22 @@ private:
     std::vector<int> m_factorials;
 };
 
+/*
+   leetcode AC:
+   time: 4ms (100%)
+   memory: 8.3Mb (100%)
+*/
+
+
 int main(int argc, char* argv[]) {
 
-    int n = 3;
-    int k = 3;
+    int n = 4;
+    int k = 9;
 
-    string ans = Solution().getPermutation(n, k);
+    std::cout << "n=" << n << std::endl;
+    std::cout << "k=" << k << std::endl;
+
+    std::string ans = Solution().getPermutation(n, k);
 
     cout << "ans:" << ans << endl;
 
