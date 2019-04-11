@@ -22,6 +22,8 @@ public:
         size_t n = grid.front().size();
 
         int minSum = -1;
+        vector<int> sums; // all possible sum
+
         list<PosVal> bfs;
         bfs.push_back(PosVal({0, 0, grid[0][0]}));
 
@@ -37,6 +39,8 @@ public:
                 else if (minSum > pv.val) {
                     minSum = pv.val;
                 }
+
+                sums.push_back(pv.val);
                 continue;
             }
 
@@ -52,6 +56,9 @@ public:
                 bfs.push_back(PosVal({pv.x, pv.y+1, val}));
             }
         }
+
+        cout << "all possible sum:" << endl;
+        cout << sums << endl;
 
         //        PosVal t = bfs.front();
         //        cout << t.x << t.y << t.val << endl;
